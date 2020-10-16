@@ -1,0 +1,19 @@
+#DockerFile
+    FROM account-name/image-name:tag OR image-name:tag OR image-name
+    RUN command								//Run run in building the image
+    RUN ["executable","param1","param2"]
+    WORKDIR container-working-directory
+    COPY host-directory container-directory
+    EXPOSE port-number
+    CMD default-command							//CMD run in running container
+    VOLUME assigned-volume-to-container-path
+    VOLUME container-volume-dir
+    ENTRYPOINT ["python", "app.py"]
+    HEALTHCHECK --interval=30s --timeout=3s --start-period=1m --retries=3
+    CMD curl -f http://localhost || exit 1
+
+
+
+To Run the image execute this command in the dir which has the Dockerfile
+docker build -t Build-Name:01 .
+

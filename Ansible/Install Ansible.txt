@@ -1,0 +1,4 @@
+yum install epel-release
+yum cleanall
+yum repolist
+yum install ansible

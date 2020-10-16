@@ -1,0 +1,33 @@
+#! /bin/bash
+sudo docker pull ubuntu
+sudo docker pull centos
+sudo docker pull alpine
+sudo docker pull debian
+sudo docker pull fedora
+sudo docker pull amazonlinux
+sudo docker pull photon
+sudo docker pull kalilinux/kali-rolling
+
+sudo docker pull nginx
+sudo docker pull couchbase
+sudo docker pull couchdb
+sudo docker pull redis
+sudo docker pull postgres
+sudo docker pull mysql
+sudo docker pull registry
+sudo docker pull mongo
+sudo docker pull mariadb
+sudo docker pull docker
+sudo docker pull openjdk
+sudo docker pull bash
+sudo docker pull java
+sudo docker pull perl
+
+sudo docker pull registry
+
+sudo docker pull hello-world
+
+
+sudo docker pull php
+sudo docker pull python
+sudo docker pull ruby

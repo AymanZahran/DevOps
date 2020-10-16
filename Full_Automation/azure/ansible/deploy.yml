@@ -1,0 +1,17 @@
+- hosts: masters
+  tasks:
+        - name: sleep three minutes till the network plugin be installed correctly
+          pause:
+                minutes: 3
+        - name: install git
+          yum:
+                name: git
+                state: latest
+        - name: clone yml files
+          git:
+                repo: 'https://github.com/AymanZahran/Full_Automation'
+                dest: /home/sysadmin/Full_Automation/azure
+                clone: yes
+                update: no
+        - name: deploy kubernetes
+          command: kubectl apply -f /home/sysadmin/Full_Automation/kubernetes/deployment.yml

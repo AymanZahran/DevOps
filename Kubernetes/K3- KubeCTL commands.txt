@@ -1,0 +1,65 @@
+kubectl version
+
+kubectl run 			changing to be only for pod creation 	(similar to docker container run)
+kubectl create 			create some resources via CLI or YAML 	(similar docker service create)
+kubectl apply 			create/update anything via YAML		(similar to docker stack deploy)
+
+
+kubctl create deployment deployment-name --image-name			create deployment, replicaset and pod (similar to docker service create)
+kubectl run pod-name 
+	--generator run-pod/v1
+	--rm								delete the pod after creation
+	-it								to write commands in interactive shell	
+	--image image-name -- bash 					create single POD (similar to docker run)
+
+kubectl get all								display all deployments, replicaset,pods and services
+kubectl get namespaces							display all namesapces
+kubectl get deployments							display all deployments
+kubectl get replicaset							display all replicaset
+kubectl get pods							display all pods
+kubectl get service 							display all servicess
+kubectl get pods -n kube-system
+kubectl get pods  --all-namespaces
+kubectl get pods -o wide
+
+kubectl edit rs/ReplicaSet-name
+kubectl edit deploy/Deployment-name
+
+kubectl delete deploymenet deployment-name				delete the deployment
+kubectl delete pod pod-name						delete the POD
+kubectl delete service service-name					delete the service
+kubectl delete namespace namespace-name					delete the namespace
+
+kubectl expose deployment deployment-name --port port-number --name service-name --type service-type(ClusterIP,NodePort,LoadBalancer)
+
+kubectl logs pod-name							logs of specific pods
+kubectl describe pod pod-name						details of specific pods
+kubectl scale deployment deployment-name --replicas number-of-replicas
+
+kubectl delete deployment deployment-name				delete the deployment
+kubectl scale pod pod-name --replicas number-of-replicas
+kubectl logs deployment deployment-name --follow --tail 1		logs for pod of deployment
+kubectl logs -l run=deployment-name					logs for all pods of deployment
+
+
+
+
+Notes
+services has FQDN=hostname.namspace.svc.cluster.local
+Stern tool for logging
+In swarms port mapping host-port:containter-port
+In kubernetes port mapping container-port:host-port
+Host Port Range = 30000 - 32767
+
+ Kubernetes			vs 		   Swarms	
+kubectl run					docker container run
+kubectl create					docker service create
+kubectl apply					docker stack deploy
+deployments					services
+pods						containers
+services					networks
+NodePort					Overlay
+
+
+
+

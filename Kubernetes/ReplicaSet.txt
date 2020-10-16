@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+    name: frontend
+    labels:
+          env: prod
+spec:
+    replicas: 2
+    selector:
+          matchLabels:
+              app: db
+    template:
+          metadata:
+              labels:
+                  app: db
+                  env: prod
+          spec:
+              containers:
+                - name: pod-rep
+                  image: nginx
+
+
+To run
+kubectl create -f filename.yml
+

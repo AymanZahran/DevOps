@@ -1,0 +1,52 @@
+---
+- hosts: all
+  tasks:
+        - name: Creating a repository file for Docker
+          file:
+            path: /etc/yum.repos.d/docker-ce.repo
+            state: touch
+
+        - name: Adding repository details in docker-ce.repo file.
+          blockinfile:
+            path: /etc/yum.repos.d/docker-ce.repo
+            block: |
+                [docker-ce-stable]
+                name=Docker CE Stable - $basearch
+                baseurl=https://download.docker.com/linux/centos/7/$basearch/stable
+                enabled=1
+                gpgcheck=1
+                gpgkey=https://download.docker.com/linux/centos/gpg
+
+        - name: yum-makecache
+          command: yum makecache -y
+          args:
+            warn: no
+
+        - name: install container.io
+          command: yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+          args:
+            warn: no
+
+        - name: Install docker-ce
+          yum:
+            name: docker-ce
+            state: latest
+
+        - name: enable docker service
+          service:
+            name: docker
+            enabled: true
+            state: started
+
+        - name: add the user to docker group
+          user:
+            name: sysadmin
+            group: docker
+
+        - name: Install required system packages
+          yum: name={{ item }} state=latest
+          loop: [ 'python38-pip', 'python38-setuptools']
+
+        - name: Install Docker Module for Python
+          pip:
+            name: docker

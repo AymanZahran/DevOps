@@ -1,0 +1,33 @@
+#File has to be named docker-compose.yml
+#to run the file docker-compose up -d
+
+    version: '3.1'  # if no version is specified then v1 is assumed. Recommend v2 minimum
+    services: 
+        service-name:
+	   container_name: container-name
+	   build: .
+           image: image-name
+           ports:
+                - 'host-port:container-port'
+            command: 
+            environment: # Optional, same as -e in docker run
+                - key:value
+            volumes: 
+                - volume-name:cont-dir
+                - host-dir:cont-dir
+            network:
+                - network-name
+            depends_on:
+                - service-name
+	    links:
+		- service-name
+    volumes: 
+        volume-name: 
+    networks: 
+        network-name: 
+    healthcheck:
+        test: ["CMD","curl","-f","http://localhost"]
+        interval: 1m30s
+        timeout: 10s
+        retries: 3
+        start_period: 1m

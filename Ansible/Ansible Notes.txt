@@ -1,0 +1,75 @@
+Ansible
+1- Ansible Conttroller
+2- Managed Hosts
+
+- Connection must be reachable
+- Open Port 22 on Managed Hosts
+- Python has to be installed
+- To use ansible on windows use WinRC Module
+
+
+SSH Keypair
+1- Symetric	1 key
+2- ASymetric	2 key (Public and Private)
+
+To Create SSH Keypair
+In the Master
+ssh-keygen 
+ssh-copy-id user@node01
+ssh-copy-id user@node02
+
+/home/username/.ssh/knowhosts
+
+
+Ansible Configuration File
+/etc/ansible/ansible.cfg
+
+Ansible Configurations priority
+1- echo $ANSIBLE_CONFIG
+2- current directory/ 	ansible.conf
+3- /home/user/ansible/  ansible.conf
+4- /etc/ansible/	ansible.conf
+
+Ansible.cfg file important sections
+1- defaults
+2- inverntory
+3- privilege_escalation
+
+Ansible Inventory File
+/etc/ansible/hosts
+
+ansible all -m ping
+
+
+ansible-doc
+ansible-doc module-name
+
+ansible adhoc -> single task
+ansible playbook -> multiple tasks
+
+ansible group of groups
+
+Node[01:20]
+10.10.10.[1:40]
+
+ansible all -m command -a "command"
+
+ansible db -m user -a 'name=oracle uid=4000'
+
+
+What is the difference between shell, raw and command
+
+ansible-playbook --syntax-check playbook.yml
+ansible-playbook playbook.yml
+
+
+
+Ansible Vars Piorities:
+1- Command
+2- Vars in playbook (vars or var_files)
+3- host_vars
+4- group_vars
+
+
+
+use ansible shell&CMD module to run script (after copy)

@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+        - name: Update the System
+          yum:
+            name: '*'
+            state: latest
+
+- import_playbook: install-docker.yml
+- import_playbook: install-kubernetes.yml
+- import_playbook: setup-cluster.yml
+- import_playbook: join-nodes.yml
+- import_playbook: deploy.yml
+
+

@@ -1,0 +1,33 @@
+{
+  "builders": [{
+    "type": "azure-arm",
+
+    "tenant_id": "5d2aceb4-5699-4afa-9fd5-d746b02eced1",
+    "subscription_id": "0fd12880-f592-4015-a973-fc85a5de530b",
+    
+    "managed_image_resource_group_name": "myResourceGroup",
+    "managed_image_name": "myPackerImage",
+
+    "os_type": "Linux",
+    "image_publisher": "OpenLogic",
+    "image_offer": "CentOS",
+    "image_sku": "8_2-gen2",
+
+    "azure_tags": {
+        "dept": "Engineering",
+        "task": "Image deployment"
+    },
+
+    "location": "East US",
+    "vm_size": "Standard_DS2_v2"
+  }],
+  "provisioners": [{
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "inline": [
+      "yum update",
+      "yum upgrade -y"
+    ],
+    "inline_shebang": "/bin/sh -x",
+    "type": "shell"
+  }]
+}

@@ -1,0 +1,48 @@
+#YAML File for stacks
+    version: '3.1'  # if no version is specified then v1 is assumed. Recommend v2 minimum
+    services: 
+        service-name: 
+           image: image-name
+           deploy:
+                  mode: replicated
+                  replicas: number-of-replicas
+                  labels: [APP=application-name]
+                  update_config:
+                      parallelism: number-of-parallelism
+                      delay: seconds
+                  restart_policy:
+                      condition: 10s
+                      delay: seconds
+                      max_attempts: number
+                      window: 120s
+                  placement:
+                      constraints: [node.role == manager]
+            ports:
+                - 'host-port:container-port'
+            command: 
+            environment: # Optional, same as -e in docker run
+                - key:value
+            volumes: 
+                - volume-name:cont-dir
+                - host-dir:cont-dir
+            networks:
+                - network-name
+            secrets:
+                - secret-name
+            depends_on:
+                - service-name
+    volumes: 
+        volume-name: 
+    networks: 
+        network-name: 
+    secrets:
+        secret-name:
+             file: ./secret-file
+        secret-name:
+             external: true
+    healthcheck:
+         test: ["CMD","curl","-f","http://localhost"]
+         interval: 1m30s
+         timeout: 10s
+         retries: 3
+         start_period: 1m

@@ -1,0 +1,6 @@
+[masters]
+master01
+
+[nodes]
+node01
+node02

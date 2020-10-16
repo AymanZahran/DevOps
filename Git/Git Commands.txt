@@ -1,0 +1,27 @@
+yum install git -y
+git version
+ssh -T git@github.com
+mkdir repo_name
+cd repo_name
+git init
+echo "" > README.md
+git branch -M master
+git remote add origin https://github.com/AymanZahran/new.git
+git config --global user.name "Your name"
+git config --global user.email "you@example.com"
+git config --global credential.helper store			//to save credentials
+git status
+git branch
+git add -A
+git commit -am "commit name"
+git push -u origin master
+
+git branch br-1
+git branch
+git checkout br-1
+git branch -d br-1		//to delete branch
+
+git push -u origin br-1
+
+git stash 			//to hide untracked files
+git stash pop			//to show the untracked files

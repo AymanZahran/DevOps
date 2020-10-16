@@ -1,0 +1,149 @@
+docker info
+docker-version
+docker-machine version
+docker-compose --version
+docker system df
+docker system prune
+
+docker container run 
+	--name container-name 			name the container
+	--network virtual-network-name		attatch to network(default:bridge)
+	-v volume-name:cont-volume-dir		attach to volume in /var/lib/docker/volumes/volume-name (if the volume doesn't exit, it will be created)
+	-v host-or-net-path:cont-dir		map between host file/directory and container file/directory
+	--network-alias alias-name		add dns alias
+	--expose				Open port on the Container
+	--p host-port:container-port 		map specific port
+	-P					map random port
+	-e ENV_VAR=ENV_VAL			send env variable
+	-it					write commands
+	--rm					automatically delete the container when exited
+	-d	 				run in bachground
+	--health-cmd="pg_isready -U postgres || exit 1"		Health Check
+	--security-opt seccopm=./default.json	add priviledge to the root of the container
+	--cap-drop=command			deprive the root from exec specific commands
+	--cap-add=command			make the root from exec specific commands
+	-c					run command inside the container one it is built
+	image-name 
+docker container ps 						show running containers		
+docker container ps -a						show all containers
+docker container exec container-name command		run command from outside the contaier
+docker container exec -it container-name bash			exec on the container
+docker container rename old-name new-name			rename a container
+docker container commit container-name image-name		save the container into image
+docker container stop container-name				stop a container
+docker container start container-name				start a container
+docker container pause container-name				pause a container
+docker container unpause container-name				unpause a container
+docker container restart container-name				restart a container
+docker container update container-name
+docker container kill container-name/id				kill a container
+docker container rm -f container-name/id			delete a container
+docker container rm -f $(docker ps -aq) 			delete all containers
+docker container ls						list containers
+docker container logs container-name				see log of a container
+docker container top container-name				see processes in container
+docker container inspect container-name				see container details
+docker cp container-name:/path /host-path			cp from container to host
+docker cp /host-path container-name:/path 			cp from  host to container
+docker stats							see all containers performance
+docker container stats						see container performance
+docker container port container-name				display all ports mapping
+docker container export container-name > file.tar		Export container in tar file
+docker conatiner import file.tar				Import container from tar file
+
+docker image ls							list all images
+docker image inspect						see image details
+docker image rm image-name					delete an image
+docker image rm -f $(docker image ls -aq) 			delete all images
+docker image pull image-name					pull an image from repository
+docker image push image-name					push an image to repository
+docker image history image-name					see image layers
+docker image tag image-name accountname/repository:tag		give the image name and tag
+docker image build -t accountname/repository:tag directory	build an image
+docker image save image-name > file.tar				Save image in tar file
+docker image load file.tar					Load image from tar file
+
+docker network ls								list all networks		
+docker network inspect virtual-network-name					see network details
+docker network rm network-name							delete network
+docker network create virtual-network-name --driver driver-name(bridge,host,none,overlay)		create new network
+docker network connect virtual-network-name container-name			connect container to network
+docker network disconnect virtual-network-name container-name			disconnect container from network
+
+volume dir:
+/var/lib/docker/volumes
+
+docker volume ls						list all volume
+docker volume inspect volume-name				see volume details
+docker volume rm volume-name					delete a volume
+docker volume create volume-name --driver driver-name		create a volume
+
+docker-compose -f yml-file up -d			Create Containers, Networks and Volumes from the compose files
+docker-compose -f myl-file down				Kill Containers, Networks and Volumes from the compose files
+docker-compose start
+docker-compose stop
+docker-compose pause
+docker-compose unpause
+docker-compose ps
+docker-compose top
+docker-compose build
+
+docker swarm init           	initialize swarm on the first node
+docker swarm join		join the swarm
+docker swarm join-token		get tokens for workers and managers
+docker swarm leave		leave the swarm
+docker swarm unlock
+
+docker node ls              				display all nodes
+docker node inspect node-name				see datails of node
+docker node rm node-name				delete node
+docker node ps node-name				
+docker node promote					promote node
+docker node demote					demote node
+docker node --update --role manager/worker node-name	update role on node
+
+docker service create
+	--name container-name 				name of the service
+	--replicas 3 
+	--network virtual-network-name			attatch to network(default:bridge)
+	--mount type=volume,source=souce-path/vol-name,target=target-path		attach to volume in /var/lib/docker/volumes/volume-name (if the volume doesn't exit, it will be created)
+	--mount type=bind,source=souce-path/vol-name,target=target-path			map between host file/directory and container file/directory
+	--p host-port:container-port 			map specific port
+	-e ENV_VAR=ENV_VAL				send env variable
+	-e PASSWORD=/run/secrets/secret-name
+	--secret secret-name
+	image-name 
+docker service update service-name --replicas 3			update service
+docker service update service-name --secret-rm			remove the secret
+docker service update --image image-name service-name		update service image
+docker service update --env-add ENV=VALUE service-name		add environment variable
+docker service update --env-rm ENV=VALUE service-name		delete environment variable
+docker service update --publish-add port-number service-name	add port
+docker service update --publish-rm port-number service-name	delete port
+docker service inspect service-name				see details of service
+docker service log service-name					see logs of service
+docker service ls						list all services
+docker service ps service-name					containers runnning in specific service
+docker service rm service-name					delete service
+docker service logs service-name				see logs for service
+docker service scale service-name=number-of-replicas		increase replicas pere service
+
+docker stack deploy -c ymlfile.yml stack-name			deploy the stack
+docker stack ls							list all stacks
+docker stack ps stack-name					list all tasks(containers) in stack
+docker stack rm	stack-name					delete stack
+docker stack services stack-name				list all services in stack
+
+docker secret create secret-name file-name.txt			create secret 
+docker secret ls						list all secrets
+docker sercret inspect secret-name				information about the secret
+docker secret rm secret-name
+
+
+notes
+docker image is AccountName/Repository:Tag			Account name is Optional and Tag name is Latest by default
+overlay network has 2 benefits
+	- load balance between replicas
+	- accept the request from all node
+compose ignores deploy command and swarm ignores build command
+what is blue green deploy

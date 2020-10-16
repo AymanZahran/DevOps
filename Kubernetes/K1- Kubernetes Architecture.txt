@@ -1,0 +1,58 @@
+K8s = Kubernetes -> The whole Orchestrator
+KubeCTL -> CLI to manage Kubernetes API
+Node -> Server in Kubernetes Cluster
+Kubelet -> Agent Running above the node (It is a container)
+Control Plane -> Masters (Managers)
+
+Master's Containers must be running
+1- API: The way to talk between components (hwa el neysallem w yestelem)
+	- API Traffic
+	- Kubectl
+2- Scheduler: Control how and where the containers are placed on the nodes
+3- etcd: (Database of Configurations & Status of Containers)
+4- Controller: Take the Orders and make sure the tasks is doing well
+5- Core DNS: DNS for the containers
+
+Node's Containers must be running
+1- Kubelet: Gateway to make connection between Master and Nodes
+2- Kube-Proxy: Interface to the Real World
+
+
+Kubernetes Container Abstraction
+1- POD
+	- One or more containers running together on one Node
+	- Basic unit of deplotment. Containers are always in pods
+2- Controller
+	- For creating and updating PODs and other objects
+3- Service
+	- network endpoint to connect to a pod
+4- Namespace (Optional)
+	- Filtered group of objects in cluster
+
+By Creating a POD,
+1- Create Deployment responsible for managing ReplicaSet
+2- ReplicaSet is to ensure the that the PODs is running with the identical template
+3- PODs contains the container as well as the volume NIC
+
+CoreDNS service allow to resolve services by name
+
+There are four types of Kubernetes services:
+
+1- ClusterIP
+	This default type exposes the service on a cluster-internal IP. 
+	You can reach the service only from within the cluster.
+2- NodePort
+	This type of service exposes the service on each node’s IP at a static port. 
+	A ClusterIP service is created automatically, and the NodePort service will route to it. 
+	From outside the cluster, you can contact the NodePort service by using “<NodeIP>:<NodePort>”.
+3- LoadBalancer
+	This service type exposes the service externally using the load balancer of your cloud provider. 
+	The external load balancer routes to your NodePort and ClusterIP services, which are created automatically.
+4- ExternalName
+	This type maps the service to the contents of the externalName field (e.g., foo.bar.example.com). 
+	It does this by returning a value for the CNAME record.
+
+
+
+
+

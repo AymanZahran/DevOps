@@ -1,0 +1,54 @@
+#!/bin/bash
+yum update -y
+yum upgrade -y
+
+echo "upgrade system successfully"
+
+yum install -y epel-release
+yum cleanall -y
+yum repolist
+yum install -y ansible
+
+echo "install ansible successfully"
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[azure-cli]
+name=Azure CLI
+baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+
+sudo yum install -y azure-cli
+
+echo "install azure CLI successfully"
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+echo "install aws CLI successfully"
+
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+sudo yum -y install terraform
+terraform -help
+terraform -install-autocomplete
+
+echo "install terraform successfully"
+
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+sudo yum install -y packer
+packer -autocomplete-install
+
+echo "install packer successfully"
+
+sudo yum install -y git
+
+
+cd /home/sysadmin
+git clone "https://github.com/AymanZahran/Full_Automation"
+
+cd /home/sysadmin/Full_Automation
+git init

@@ -1,0 +1,6 @@
+Make trust between master and slaves
+cp -r .ssh/ /var/lib/jenkins/
+sudo chown -R jenkins:jenkins /var/lib/jenkins/.ssh/
+add new node from Jenkins GUI
+
+
